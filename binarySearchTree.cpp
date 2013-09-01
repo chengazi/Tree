@@ -1,5 +1,5 @@
 #include "binarySearchTree.h"
-
+// private
 TreeNode::TreeNode():value(0),leftChild(0),rightChild(0)
 {
 }
@@ -24,7 +24,10 @@ BSearchTree::BSearchTree(int v)
 {
   root = new  TreeNode(v);
 }
-
+/*
+ * This is a non recurtive version of adding a node to the 
+ * Binary Search Tree. In fact We can use recursion to write 
+ * a much more clean and clear version of addNode function
 int BSearchTree::addNode(int v)
 {
   if(0==root) // first element of the bs tree
@@ -66,7 +69,47 @@ int BSearchTree::addNode(int v)
   }
   return 0;
 }
-
+*/
+/**
+ * recursion Version of addNode
+ * Consider the three condition below
+ * 1. the root node is empty.
+ *    create a root node and assign the value
+ * 2. the value of v is greater than the one of current node
+ *    call addNode function of the rightchild
+ * 3. the value is less than or equal to the one of the current node
+ *    call addNode function of the lefChild
+ */
+int BSearchTree::addNodeToCurNode(TreeNode* cur, int v)
+{
+  if(!cur)
+    return -1;
+  else if(v > cur->getValue())
+  {
+    if(cur->rightChild)
+      addNodeToCurNode(cur->rightChild,v);
+    else
+      cur->rightChild = new TreeNode(v);
+  }
+  else
+  {
+    if(cur->leftChild)
+      addNodeToCurNode(cur->leftChild,v);
+    else
+      cur->leftChild = new TreeNode(v);
+  }
+}
+int BSearchTree::addNode(int v)
+{
+  if(!this->root)
+  {
+    this->root = new TreeNode(v);
+    return 0;
+  }
+  return addNodeToCurNode(this->root, v);
+}
+/**
+ * Delete Node can be more clear too. let's do it tomorrow.
 int BSearchTree::deleteNode( int v)
 {
   TreeNode* curP = root; 
@@ -119,7 +162,7 @@ int BSearchTree::deleteNode( int v)
   }
   return 0;
 }
-
+*/
 TreeNode* BSearchTree::getMax(TreeNode* node)
 {
   if(!node || !node->leftChild)

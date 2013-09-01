@@ -34,8 +34,8 @@ class BSearchTree
     void firstOrder(TreeNode* root);
     TreeNode* getMax(TreeNode* node);
     TreeNode* getMin(TreeNode* node);
-    deleteNode(TreeNode* node,int v);
-    addNode(TreeNode* node, int v);
+    int deleteNode(TreeNode* node,int v);
+    int addNodeToCurNode(TreeNode* cur, int v);
 };
 
 #endif
